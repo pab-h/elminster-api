@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "${APP_PORT}:3000"
+    develop:
+      watch:
+        - action: sync+restart
+          path: .
+          target: /app
+        - action: rebuild
+          path: requirements.txt
