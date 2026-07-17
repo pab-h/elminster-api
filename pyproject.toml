@@ -1,0 +1,9 @@
+[project]
+name = "elminster-api"
+version = "0.1.0"
+description = "Um sistema de inteligência artificial voltado para a assistência em jogos de RPG de mesa"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.139.2",
+]
