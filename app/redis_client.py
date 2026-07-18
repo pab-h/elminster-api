@@ -1,15 +1,18 @@
-import os
 import redis
-from dotenv import load_dotenv
+
+from dotenv  import load_dotenv
+from app.env import settings
 
 load_dotenv()
 
-redis_poll = redis.Redis(
-    host             = os.getenv("REDIS_HOST"),
-    port             = os.getenv("REDIS_PORT"),
-    password         = os.getenv("REDIS_PASSWORD"),
+redis_pool = redis.Redis(
+    host             = settings.redis_host,
+    port             = settings.redis_port,
+    password         = settings.redis_password,
     decode_responses = True 
 )
+
+# uv run python -m app.redis_client
 
 if __name__ == "__main__":
 
@@ -17,7 +20,7 @@ if __name__ == "__main__":
 
     try:
 
-        if redis_poll.ping():
+        if redis_pool.ping():
             print("Successfully connected to Redis!")
 
     except redis.exceptions.AuthenticationError:
