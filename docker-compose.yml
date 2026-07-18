@@ -9,4 +9,4 @@ services:
           path: .
           target: /app
         - action: rebuild
-          path: requirements.txt
+          path: pyproject.toml
