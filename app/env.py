@@ -3,6 +3,10 @@ from pydantic_settings import SettingsConfigDict
 
 class Settings(BaseSettings):
 
+    api_name: str
+
+    database_url: str
+
     redis_host:     str
     redis_port:     int
     redis_password: str
@@ -17,4 +21,4 @@ settings = Settings()
 
 if __name__ == "__main__":
 
-    print(settings.redis_host)
+    print(settings.api_name)

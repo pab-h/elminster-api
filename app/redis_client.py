@@ -5,7 +5,7 @@ from app.env import settings
 
 load_dotenv()
 
-redis_pool = redis.Redis(
+redis_client = redis.Redis(
     host             = settings.redis_host,
     port             = settings.redis_port,
     password         = settings.redis_password,
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     try:
 
-        if redis_pool.ping():
+        if redis_client.ping():
             print("Successfully connected to Redis!")
 
     except redis.exceptions.AuthenticationError:
