@@ -38,7 +38,7 @@ class DocumentChunks(SQLModel, table = True):
     id:          UUID        = Field(default_factory = uuid4, primary_key = True)
     content:     str
     document_id: UUID
-    embedding:   List[float] = Field(sa_type =VECTOR(768))
+    embedding:   List[float] = Field(sa_type = VECTOR(768))
 
     document: Document = Relationship(back_populates = "chunks")
 

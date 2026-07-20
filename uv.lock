@@ -96,6 +96,7 @@ dependencies = [
     { name = "psycopg2-binary" },
     { name = "pydantic-settings" },
     { name = "python-dotenv" },
+    { name = "python-multipart" },
     { name = "redis" },
     { name = "sqlmodel" },
 ]
@@ -107,6 +108,7 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = ">=2.9.12" },
     { name = "pydantic-settings", specifier = ">=2.14.2" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
+    { name = "python-multipart", specifier = ">=0.0.32" },
     { name = "redis", specifier = ">=8.0.1" },
     { name = "sqlmodel", specifier = ">=0.0.39" },
 ]
