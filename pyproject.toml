@@ -5,7 +5,11 @@ description = "Um sistema de inteligência artificial voltado para a assistênci
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "celery[redis]>=5.3.1",
     "fastapi[standard]>=0.139.2",
+    "langchain-text-splitters>=1.1.2",
+    "markitdown[pdf]>=0.1.6",
+    "ollama>=0.6.2",
     "pgvector>=0.5.0",
     "psycopg2-binary>=2.9.12",
     "pydantic-settings>=2.14.2",
