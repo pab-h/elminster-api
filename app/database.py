@@ -7,13 +7,11 @@ from sqlmodel import text
 
 from app.env import settings
 
-
 from app.models import Document
 from app.models import DocumentChunks
 
 engine = create_engine(
-    url  = settings.database_url,
-    echo = True
+    url  = settings.database_url
 )
 
 def create_db_and_tables():

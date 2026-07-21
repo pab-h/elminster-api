@@ -1,14 +1,10 @@
 import redis
 
-from dotenv  import load_dotenv
 from app.env import settings
-
-load_dotenv()
 
 redis_client = redis.Redis(
     host             = settings.redis_host,
     port             = settings.redis_port,
-    password         = settings.redis_password,
     decode_responses = True 
 )
 
@@ -22,9 +18,6 @@ if __name__ == "__main__":
 
         if redis_client.ping():
             print("Successfully connected to Redis!")
-
-    except redis.exceptions.AuthenticationError:
-        print("Authentication Error: Check the password in your .env file.")
 
     except redis.exceptions.ConnectionError:
         print("Connection Error: Could not reach the Redis server.")
