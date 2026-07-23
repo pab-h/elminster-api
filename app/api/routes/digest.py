@@ -27,7 +27,7 @@ class DigestPostResponse(BaseModel):
 
 @router.post("/digest", status_code = status.HTTP_201_CREATED)
 async def digest_document(
-    file: UploadFile, 
+    file:    UploadFile, 
     session: Session = Depends(get_db_session)
 ) -> DigestPostResponse:
     

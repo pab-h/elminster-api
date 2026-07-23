@@ -14,7 +14,6 @@ def parse_file(target: Path) -> str:
 
     return result.markdown
 
-
 def text_chunking(text: str) -> List[str]:
 
     text_splitter = RecursiveCharacterTextSplitter(
@@ -23,7 +22,6 @@ def text_chunking(text: str) -> List[str]:
     )
 
     return text_splitter.split_text(text)
-
 
 def generate_embeddings(chunks: List[str]) -> List[List[float]]:
 

@@ -4,7 +4,8 @@ from app.env import settings
 async def ensure_models_exists():
     
     models_required = [
-        settings.embedding_model
+        settings.embedding_model,
+        settings.llm_model
     ]
 
     client = AsyncClient(host = settings.ollama_url)
