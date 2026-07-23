@@ -4,9 +4,9 @@ from app.models import Document
 from app.models import DocumentChunks
 from app.models import DocumentState
 
-from app.rag_pipeline import parse_file
-from app.rag_pipeline import text_chunking
-from app.rag_pipeline import generate_embeddings
+from app.rag.digest import parse_file
+from app.rag.digest import text_chunking
+from app.rag.digest import generate_embeddings
 
 from app.database import get_db_session
 from app.env      import settings
@@ -21,6 +21,8 @@ celery_app = Celery(
     broker  = settings.redis_url, 
     backend = settings.redis_url
 )
+
+celery_app.conf.broker_connection_retry_on_startup = True
 
 logger = logging.getLogger(__name__)
 
