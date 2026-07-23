@@ -16,6 +16,8 @@ from uuid import uuid4
 
 from pgvector.sqlalchemy import VECTOR
 
+from app.env import settings
+
 class DocumentState(str, Enum):
     PENDING    = "PENDING"
     PROCESSING = "PROCESSING"
@@ -35,7 +37,7 @@ class Document(SQLModel, table = True):
 class DocumentChunks(SQLModel, table = True):
     id:          UUID        = Field(default_factory = uuid4, primary_key = True)
     content:     str
-    embedding:   List[float] = Field(sa_type = VECTOR(768))
+    embedding:   List[float] = Field(sa_type = VECTOR(settings.embedding_size))
     document_id: UUID        = Field(foreign_key="document.id")
 
     document: Document = Relationship(back_populates = "chunks")
