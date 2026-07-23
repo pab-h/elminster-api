@@ -1,12 +1,51 @@
+include:
+ - infra.yml
+
 services:
-  web:
+
+  api:
     build: .
+    container_name: elminster_api
     ports:
-      - "${APP_PORT}:3000"
+      - "3000:3000"
+    volumes:
+      - upload_data:/app/uploads 
     develop:
       watch:
         - action: sync+restart
           path: .
           target: /app
         - action: rebuild
-          path: requirements.txt
+          path: pyproject.toml
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+
+  digest_worker:
+    build: .
+    container_name: elminster_digest_worker
+    command: uv run celery -A app.workers worker --loglevel=info
+    volumes:
+      - upload_data:/app/uploads 
+    develop:
+      watch:
+        - action: sync+restart
+          path: .
+          target: /app
+        - action: rebuild
+          path: pyproject.toml
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+
+volumes:
+  upload_data:
+    driver: local
