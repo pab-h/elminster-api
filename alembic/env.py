@@ -7,9 +7,7 @@ from sqlmodel import SQLModel
 
 from app.env import settings
 
-from app.models.users     import User
-from app.models.documents import Document
-from app.models.documents import DocumentChunks
+import app.models
 
 config = context.config
 
