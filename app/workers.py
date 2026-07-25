@@ -1,8 +1,8 @@
 import logging
 
-from app.models import Document
-from app.models import DocumentChunks
-from app.models import DocumentState
+from app.models.documents import Document
+from app.models.documents import DocumentChunks
+from app.models.documents import DocumentState
 
 from app.rag.digest import parse_file
 from app.rag.digest import text_chunking
