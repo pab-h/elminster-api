@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 
 from app.ollama_setup import ensure_models_exists
-from app.api.routes   import digest
-from app.api.routes   import query
+
+from app.api.routes import digest
+from app.api.routes import query
 
 from contextlib import asynccontextmanager
 
