@@ -7,8 +7,9 @@ from sqlmodel import text
 
 from app.env import settings
 
-from app.models import Document
-from app.models import DocumentChunks
+from app.models.users     import User
+from app.models.documents import Document
+from app.models.documents import DocumentChunks
 
 engine = create_engine(
     url  = settings.database_url

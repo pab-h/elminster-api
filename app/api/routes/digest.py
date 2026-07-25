@@ -11,8 +11,9 @@ from sqlmodel import Session
 from pydantic import BaseModel
 from uuid     import UUID
 
-from app.models   import DocumentState
-from app.models   import Document
+from app.models.documents import DocumentState
+from app.models.documents import Document
+
 from app.database import get_db_session
 from app.workers  import digest_document_task
 from app.env      import settings
