@@ -4,6 +4,7 @@ from app.ollama_setup import ensure_models_exists
 
 from app.api.routes import digest
 from app.api.routes import query
+from app.api.routes import users
 
 from contextlib import asynccontextmanager
 
@@ -20,5 +21,6 @@ app = FastAPI(
     lifespan    = lifespan
 )
 
+app.include_router(users.router)
 app.include_router(digest.router)
 app.include_router(query.router)
