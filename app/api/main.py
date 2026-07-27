@@ -6,6 +6,8 @@ from app.api.routes import digest
 from app.api.routes import query
 from app.api.routes import users
 
+from app.api.exceptions import assign_exception_handlers
+
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
@@ -20,6 +22,8 @@ app = FastAPI(
     description = "API para servir um sistema de inteligência artificial voltado para a assistência em jogos de RPG de mesa",
     lifespan    = lifespan
 )
+
+assign_exception_handlers(app)
 
 app.include_router(users.router)
 app.include_router(digest.router)
