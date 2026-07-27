@@ -16,6 +16,6 @@ class UserRead(UserBase):
     created_at: datetime
 
 class UserUpdate(BaseModel):
-    name:     str | None = None
-    email:    str | None = None
-    password: str | None = None
+    name:     str      | None = None
+    email:    EmailStr | None = None
+    password: str      | None = None
