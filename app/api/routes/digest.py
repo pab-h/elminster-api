@@ -19,7 +19,8 @@ from app.workers  import digest_document_task
 from app.env      import settings
 
 router = APIRouter(
-    tags = ["Documents"]
+    tags   = ["Documents"],
+    prefix = "/documents"
 )
 
 class DigestPostResponse(BaseModel):

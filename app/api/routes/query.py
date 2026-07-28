@@ -14,7 +14,8 @@ from pydantic import BaseModel
 from app.rag.retrieve import get_retrieve_chain
 
 router = APIRouter(
-    tags = ["Query"]
+    tags   = ["Query"],
+    prefix = "/query"
 )
 
 class QueryBodyRequest(BaseModel):
@@ -23,8 +24,8 @@ class QueryBodyRequest(BaseModel):
 class QueryBodyResponse(BaseModel):
     answer: str
 
-@router.post("/query/stream")
-async def query_stream(
+@router.post("/stream")
+def query_stream(
     body:           QueryBodyRequest,
     retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain)
 ) -> StreamingResponse:
@@ -40,8 +41,8 @@ async def query_stream(
         media_type = "text/event-stream"
     )
 
-@router.post("/query")
-async def query(
+@router.post("/")
+def query(
     body:           QueryBodyRequest,
     retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain)
 ) -> QueryBodyResponse:
