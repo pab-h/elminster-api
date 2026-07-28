@@ -20,56 +20,56 @@ router = APIRouter(
 )
 
 @router.post("/", status_code = status.HTTP_201_CREATED)
-async def create_user(
+def create_user(
     user_data: UserCreate,
     session:   Session = Depends(get_db_session)
 ) -> UserRead:
     
-    return await user_service.create_user(
+    return user_service.create_user(
         user_data = user_data, 
         session   = session
     )
 
 @router.get("/{id}", status_code = status.HTTP_200_OK)
-async def find_user(
+def find_user(
     id:      UUID,
     session: Session = Depends(get_db_session)
 ) -> UserRead:
     
-    return await user_service.find_user(
+    return user_service.find_user(
         id      = id, 
         session = session
     )
 
 @router.get("/", status_code = status.HTTP_200_OK)
-async def find_all_user(
+def find_all_user(
     session: Session = Depends(get_db_session)
 ) -> list[UserRead]:
     
-    return await user_service.find_all_user(
+    return user_service.find_all_user(
         session = session
     )
 
 @router.put("/{id}", status_code = status.HTTP_200_OK)
-async def update_user(
+def update_user(
     id:        UUID,
     user_data: UserUpdate,
     session:   Session = Depends(get_db_session)
 ) -> UserRead:
     
-    return await user_service.update_user(
+    return user_service.update_user(
         id        = id, 
         user_data = user_data, 
         session   = session
     )
 
 @router.delete("/{id}", status_code = status.HTTP_200_OK)
-async def delete_user(
+def delete_user(
     id:      UUID,
     session: Session = Depends(get_db_session)
 ):
     
-    await user_service.delete_user(
+    user_service.delete_user(
         id      = id, 
         session = session
     )

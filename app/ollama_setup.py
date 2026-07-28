@@ -1,16 +1,16 @@
-from ollama  import AsyncClient
+from ollama  import Client
 from app.env import settings
 
-async def ensure_models_exists():
+def ensure_models_exists():
     
     models_required = [
         settings.embedding_model,
         settings.llm_model
     ]
 
-    client = AsyncClient(host = settings.ollama_url)
+    client = Client(host = settings.ollama_url)
     
-    response = await client.list()
+    response = client.list()
     
     installed_models = [m.model for m in response.models] 
 
@@ -20,7 +20,7 @@ async def ensure_models_exists():
         
         if not model_exists:
             print(f"Model '{model}' not found. Downloading...")
-            await client.pull(model = model)
+            client.pull(model = model)
         else:
             print(f"Model'{model}' already exists.")
     

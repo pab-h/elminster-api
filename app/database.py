@@ -3,7 +3,6 @@ from typing import Generator
 from sqlmodel import SQLModel
 from sqlmodel import Session
 from sqlmodel import create_engine
-from sqlmodel import text
 
 from app.env import settings
 

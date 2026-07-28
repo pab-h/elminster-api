@@ -8,12 +8,9 @@ from app.api.routes import users
 
 from app.api.exceptions import assign_exception_handlers
 
-from contextlib import asynccontextmanager
+def lifespan(app: FastAPI):
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-
-    await ensure_models_exists()
+    ensure_models_exists()
 
     yield
 

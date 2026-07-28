@@ -11,7 +11,7 @@ from app.services.exceptions import UserNotFoundException
 def assign_exception_handlers(app: FastAPI) -> None:
 
     @app.exception_handler(UserNotFoundException)
-    async def user_not_found_handler(
+    def user_not_found_handler(
         request: Request, 
         exc:     UserNotFoundException
     ) -> JSONResponse:
@@ -21,7 +21,7 @@ def assign_exception_handlers(app: FastAPI) -> None:
         )
 
     @app.exception_handler(UserEmailAlredyExistsException)
-    async def user_email_exists_handler(
+    def user_email_exists_handler(
         request: Request, 
         exc:     UserEmailAlredyExistsException
     ) -> JSONResponse:

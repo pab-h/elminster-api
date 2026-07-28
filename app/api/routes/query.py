@@ -25,7 +25,7 @@ class QueryBodyResponse(BaseModel):
     answer: str
 
 @router.post("/stream")
-async def query_stream(
+def query_stream(
     body:           QueryBodyRequest,
     retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain)
 ) -> StreamingResponse:
@@ -42,7 +42,7 @@ async def query_stream(
     )
 
 @router.post("/")
-async def query(
+def query(
     body:           QueryBodyRequest,
     retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain)
 ) -> QueryBodyResponse:

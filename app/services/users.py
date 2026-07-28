@@ -12,7 +12,7 @@ from app.schemas import UserUpdate
 from app.services.exceptions import UserEmailAlredyExistsException
 from app.services.exceptions import UserNotFoundException
 
-async def create_user(
+def create_user(
     user_data: UserCreate,
     session:   Session 
 ) -> UserRead:
@@ -36,7 +36,7 @@ async def create_user(
 
     return user
 
-async def find_user(
+def find_user(
     id:      UUID,
     session: Session 
 ) -> UserRead:
@@ -48,7 +48,7 @@ async def find_user(
     
     return user    
 
-async def find_all_user(
+def find_all_user(
     session: Session 
 ) -> list[UserRead]:
     
@@ -56,7 +56,7 @@ async def find_all_user(
 
     return users
 
-async def update_user(
+def update_user(
     id:        UUID,
     user_data: UserUpdate,
     session:   Session 
@@ -88,7 +88,7 @@ async def update_user(
     
     return user    
 
-async def delete_user(
+def delete_user(
     id:      UUID,
     session: Session 
 ):
