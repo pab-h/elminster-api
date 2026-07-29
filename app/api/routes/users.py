@@ -41,15 +41,6 @@ def find_user(
         session = session
     )
 
-@router.get("/", status_code = status.HTTP_200_OK)
-def find_all_user(
-    session: Session = Depends(get_db_session)
-) -> list[UserReadSchema]:
-    
-    return user_service.find_all_user(
-        session = session
-    )
-
 @router.put("/{id}", status_code = status.HTTP_200_OK)
 def update_user(
     id:        UUID,
