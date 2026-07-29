@@ -4,18 +4,18 @@ from uuid     import UUID
 from pydantic import BaseModel
 from pydantic import EmailStr
 
-class UserBase(BaseModel):
+class UserBaseSchema(BaseModel):
     name:  str
     email: EmailStr
 
-class UserCreate(UserBase):
+class UserCreateSchema(UserBaseSchema):
     password: str
 
-class UserRead(UserBase):
+class UserReadSchema(UserBaseSchema):
     id:         UUID
     created_at: datetime
 
-class UserUpdate(BaseModel):
+class UserUpdateSchema(BaseModel):
     name:     str      | None = None
     email:    EmailStr | None = None
     password: str      | None = None
