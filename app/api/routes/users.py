@@ -56,7 +56,7 @@ def update_user(
         session   = session
     )
 
-@router.delete("/{id}", status_code = status.HTTP_204_NO_CONTENT)
+@router.delete("/", status_code = status.HTTP_204_NO_CONTENT)
 def delete_user(
     id:      UUID    = Depends(get_current_user_id),
     session: Session = Depends(get_db_session)
