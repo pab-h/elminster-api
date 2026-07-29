@@ -5,9 +5,13 @@ from pydantic_settings import SettingsConfigDict
 
 class Settings(BaseSettings):
 
-    api_name:      str
-    upload_path:   Path
+    api_name:       str
+    upload_path:    Path
     context_length: int
+
+    jwt_secret_key:     str
+    jwt_algorithm:      str
+    jwt_expire_minutes: int
 
     ollama_url:      str
     embedding_model: str
