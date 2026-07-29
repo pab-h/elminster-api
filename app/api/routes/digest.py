@@ -18,6 +18,8 @@ from app.database import get_db_session
 from app.workers  import digest_document_task
 from app.env      import settings
 
+from app.api.authentication import get_current_user_id
+
 router = APIRouter(
     tags   = ["Documents"],
     prefix = "/documents"
@@ -30,7 +32,8 @@ class DigestPostResponse(BaseModel):
 @router.post("/digest", status_code = status.HTTP_201_CREATED)
 async def digest_document(
     file:    UploadFile, 
-    session: Session = Depends(get_db_session)
+    session: Session = Depends(get_db_session),
+    id:      UUID    = Depends(get_current_user_id)
 ) -> DigestPostResponse:
     
     settings.upload_path.mkdir(

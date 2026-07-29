@@ -14,6 +14,8 @@ from app.schemas import UserUpdateSchema
 
 from app.services import users as user_service
 
+from app.api.authentication import get_current_user_id
+
 router = APIRouter(
     tags   = ["Users"], 
     prefix = "/users"
@@ -36,16 +38,16 @@ def find_user(
     session: Session = Depends(get_db_session)
 ) -> UserReadSchema:
     
-    return user_service.find_user(
+    return user_service.find_user_by_id(
         id      = id, 
         session = session
     )
 
-@router.put("/{id}", status_code = status.HTTP_200_OK)
+@router.put("/", status_code = status.HTTP_200_OK)
 def update_user(
-    id:        UUID,
     user_data: UserUpdateSchema,
-    session:   Session = Depends(get_db_session)
+    id:        UUID             = Depends(get_current_user_id),
+    session:   Session          = Depends(get_db_session)
 ) -> UserReadSchema:
     
     return user_service.update_user(
@@ -56,7 +58,7 @@ def update_user(
 
 @router.delete("/{id}", status_code = status.HTTP_204_NO_CONTENT)
 def delete_user(
-    id:      UUID,
+    id:      UUID    = Depends(get_current_user_id),
     session: Session = Depends(get_db_session)
 ):
     

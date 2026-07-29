@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from typing import Any
 
 from langchain_core.runnables import RunnableSerializable
@@ -13,6 +15,8 @@ from pydantic import BaseModel
 
 from app.rag.retrieve import get_retrieve_chain
 
+from app.api.authentication import get_current_user_id
+
 router = APIRouter(
     tags   = ["Query"],
     prefix = "/query"
@@ -27,7 +31,8 @@ class QueryBodyResponse(BaseModel):
 @router.post("/stream")
 def query_stream(
     body:           QueryBodyRequest,
-    retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain)
+    retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain),
+    id:             UUID                            = Depends(get_current_user_id)
 ) -> StreamingResponse:
     
     if not body.query.strip():
@@ -44,7 +49,8 @@ def query_stream(
 @router.post("/")
 def query(
     body:           QueryBodyRequest,
-    retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain)
+    retrieve_chain: RunnableSerializable[Any, str]  = Depends(get_retrieve_chain),
+    id:             UUID                            = Depends(get_current_user_id)
 ) -> QueryBodyResponse:
     
     if not body.query.strip():
