@@ -3,12 +3,22 @@ from fastapi import Request
 from fastapi import status
 
 from fastapi.responses  import JSONResponse
-from fastapi.exceptions import ResponseValidationError
 
 from app.services.exceptions import UserEmailAlredyExistsException
 from app.services.exceptions import UserNotFoundException
+from app.services.exceptions import IncorrectPasswordException
 
 def assign_exception_handlers(app: FastAPI) -> None:
+
+    @app.exception_handler(IncorrectPasswordException)
+    def user_not_found_handler(
+        request: Request, 
+        exc:     IncorrectPasswordException
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code = status.HTTP_401_UNAUTHORIZED,
+            content     = {"detail": "User unauthorized"},
+        )
 
     @app.exception_handler(UserNotFoundException)
     def user_not_found_handler(
