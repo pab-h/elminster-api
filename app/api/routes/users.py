@@ -8,11 +8,13 @@ from sqlmodel import Session
 
 from app.database import get_db_session
 
-from app.schemas import UserCreate
-from app.schemas import UserRead
-from app.schemas import UserUpdate
+from app.schemas import UserCreateSchema
+from app.schemas import UserReadSchema
+from app.schemas import UserUpdateSchema
 
 from app.services import users as user_service
+
+from app.api.authentication import get_current_user_id
 
 router = APIRouter(
     tags   = ["Users"], 
@@ -21,9 +23,9 @@ router = APIRouter(
 
 @router.post("/", status_code = status.HTTP_201_CREATED)
 def create_user(
-    user_data: UserCreate,
+    user_data: UserCreateSchema,
     session:   Session = Depends(get_db_session)
-) -> UserRead:
+) -> UserReadSchema:
     
     return user_service.create_user(
         user_data = user_data, 
@@ -34,28 +36,19 @@ def create_user(
 def find_user(
     id:      UUID,
     session: Session = Depends(get_db_session)
-) -> UserRead:
+) -> UserReadSchema:
     
-    return user_service.find_user(
+    return user_service.find_user_by_id(
         id      = id, 
         session = session
     )
 
-@router.get("/", status_code = status.HTTP_200_OK)
-def find_all_user(
-    session: Session = Depends(get_db_session)
-) -> list[UserRead]:
-    
-    return user_service.find_all_user(
-        session = session
-    )
-
-@router.put("/{id}", status_code = status.HTTP_200_OK)
+@router.put("/", status_code = status.HTTP_200_OK)
 def update_user(
-    id:        UUID,
-    user_data: UserUpdate,
-    session:   Session = Depends(get_db_session)
-) -> UserRead:
+    user_data: UserUpdateSchema,
+    id:        UUID             = Depends(get_current_user_id),
+    session:   Session          = Depends(get_db_session)
+) -> UserReadSchema:
     
     return user_service.update_user(
         id        = id, 
@@ -63,9 +56,9 @@ def update_user(
         session   = session
     )
 
-@router.delete("/{id}", status_code = status.HTTP_200_OK)
+@router.delete("/", status_code = status.HTTP_204_NO_CONTENT)
 def delete_user(
-    id:      UUID,
+    id:      UUID    = Depends(get_current_user_id),
     session: Session = Depends(get_db_session)
 ):
     
@@ -73,7 +66,3 @@ def delete_user(
         id      = id, 
         session = session
     )
-
-    return {
-        "message": "User successfully removed"
-    }

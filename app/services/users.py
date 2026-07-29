@@ -5,17 +5,16 @@ from sqlmodel import select
 
 from app.models  import User
 
-from app.schemas import UserCreate
-from app.schemas import UserRead
-from app.schemas import UserUpdate
+from app.schemas import UserCreateSchema
+from app.schemas import UserUpdateSchema
 
 from app.services.exceptions import UserEmailAlredyExistsException
 from app.services.exceptions import UserNotFoundException
 
 def create_user(
-    user_data: UserCreate,
+    user_data: UserCreateSchema,
     session:   Session 
-) -> UserRead:
+) -> User:
     
     user_found = session.exec(
         select(User).where(User.email == user_data.email)
@@ -36,10 +35,10 @@ def create_user(
 
     return user
 
-def find_user(
+def find_user_by_id(
     id:      UUID,
     session: Session 
-) -> UserRead:
+) -> User:
     
     user = session.get(User, id)
 
@@ -48,19 +47,25 @@ def find_user(
     
     return user    
 
-def find_all_user(
+def find_user_by_email(
+    email:   str,
     session: Session 
-) -> list[UserRead]:
+) -> User:
     
-    users = session.exec(select(User)).all()
+    user = session.exec(
+        select(User).where(User.email == email)
+    ).first()
 
-    return users
+    if not user:
+        raise UserNotFoundException()
+    
+    return user   
 
 def update_user(
     id:        UUID,
-    user_data: UserUpdate,
+    user_data: UserUpdateSchema,
     session:   Session 
-) -> UserRead:
+) -> User:
     
     user = session.get(User, id)
 
@@ -73,7 +78,7 @@ def update_user(
 
         email_exists = session.exec(
             select(User).where(User.email == user_dict["email"])
-        ).one_or_none()
+        ).first()
 
         if email_exists:
             raise UserEmailAlredyExistsException()

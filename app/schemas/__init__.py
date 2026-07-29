@@ -1,3 +1,3 @@
-from app.schemas.users import UserCreate
-from app.schemas.users import UserRead
-from app.schemas.users import UserUpdate
+from app.schemas.users import *
+
+from app.schemas.authentication import *
