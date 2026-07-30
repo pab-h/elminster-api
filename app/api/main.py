@@ -2,10 +2,9 @@ from fastapi import FastAPI
 
 from app.ollama_setup import ensure_models_exists
 
-from app.api.routes import digest
-from app.api.routes import query
 from app.api.routes import users
 from app.api.routes import authentication
+from app.api.routes import documents
 
 from app.api.exceptions import assign_exception_handlers
 
@@ -25,5 +24,4 @@ assign_exception_handlers(app)
 
 app.include_router(authentication.router)
 app.include_router(users.router)
-app.include_router(digest.router)
-app.include_router(query.router)
+app.include_router(documents.router)
