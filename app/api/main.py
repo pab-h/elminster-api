@@ -5,6 +5,8 @@ from app.ollama_setup import ensure_models_exists
 from app.api.routes import users
 from app.api.routes import authentication
 from app.api.routes import documents
+from app.api.routes import boards
+
 
 from app.api.exceptions import assign_exception_handlers
 
@@ -25,3 +27,4 @@ assign_exception_handlers(app)
 app.include_router(authentication.router)
 app.include_router(users.router)
 app.include_router(documents.router)
+app.include_router(boards.router)
