@@ -17,12 +17,15 @@ services:
           target: /app
         - action: rebuild
           path: pyproject.toml
+    restart: unless-stopped
     depends_on:
       database:
         condition: service_healthy
       redis:
         condition: service_healthy
       ollama:
+        condition: service_healthy
+      garage:
         condition: service_healthy
 
   digest_worker:
@@ -38,12 +41,15 @@ services:
           target: /app
         - action: rebuild
           path: pyproject.toml
+    restart: unless-stopped
     depends_on:
       database:
         condition: service_healthy
       redis:
         condition: service_healthy
       ollama:
+        condition: service_healthy
+      garage:
         condition: service_healthy
 
 volumes:

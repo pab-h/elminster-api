@@ -13,6 +13,7 @@ dependencies = [
     "langchain-postgres>=0.0.17",
     "langchain-text-splitters>=1.1.2",
     "markitdown[pdf]>=0.1.6",
+    "minio>=7.2.20",
     "ollama>=0.6.2",
     "pgvector>=0.2.5",
     "psycopg2-binary>=2.9.12",
