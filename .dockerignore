@@ -1,0 +1,45 @@
+# Python / Pycache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Environment variables & secrets
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Version Control
+.git
+.gitignore
+.github
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker / Build artifacts
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Package manager lock files
+.uv/
+
+# Documentation & Local Examples
+README.md
+garage-example.toml

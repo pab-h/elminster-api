@@ -5,12 +5,15 @@ from pydantic_settings import SettingsConfigDict
 
 class Settings(BaseSettings):
 
-    api_name: str
+    api_name:           str
+    max_wallpaper_size: int
+    context_length:     int
 
     garage_endpoint:           str
+    garage_public_url:         str
+    garage_default_bucket:     str
     garage_default_access_key: str
     garage_default_secret_key: str
-    garage_default_bucket:     str
 
     jwt_secret_key:     str
     jwt_algorithm:      str
@@ -20,7 +23,6 @@ class Settings(BaseSettings):
     embedding_model: str
     embedding_size:  int
     llm_model:       str
-    context_length:  int
 
     database_url: str
 
