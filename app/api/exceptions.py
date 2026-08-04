@@ -7,10 +7,24 @@ from fastapi.responses  import JSONResponse
 from app.services.exceptions import UserEmailAlredyExistsException
 from app.services.exceptions import UserNotFoundException
 from app.services.exceptions import IncorrectPasswordException
+from app.services.exceptions import BoardNotFoundException
+from app.services.exceptions import NotAllowedToModifyException
+from app.services.exceptions import WallpaperIsTooLargeException
+from app.services.exceptions import WallpaperInvalidFormatException
 
 from jwt import PyJWTError
 
 def assign_exception_handlers(app: FastAPI) -> None:
+
+    @app.exception_handler(WallpaperInvalidFormatException)
+    def wallpaper_format_handler(
+        request: Request, 
+        exc:     WallpaperInvalidFormatException
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code = status.HTTP_400_BAD_REQUEST,
+            content     = { "detail": "Invalid wallpaper format"}
+        )
 
     @app.exception_handler(PyJWTError)
     def invalid_token_handler(
@@ -19,8 +33,8 @@ def assign_exception_handlers(app: FastAPI) -> None:
     ) -> JSONResponse:
         return JSONResponse(
             status_code = status.HTTP_401_UNAUTHORIZED,
-            content     = {"detail": "Invalid or expired token" },
-            headers     = {"WWW-Authenticate": "Bearer"}
+            content     = { "detail": "Invalid or expired token" },
+            headers     = { "WWW-Authenticate": "Bearer"}
         )
 
     @app.exception_handler(IncorrectPasswordException)
@@ -52,3 +66,34 @@ def assign_exception_handlers(app: FastAPI) -> None:
             status_code = status.HTTP_409_CONFLICT,
             content     = { "detail": "User already registered" },
         )
+
+    @app.exception_handler(BoardNotFoundException)
+    def board_exists_handler(
+        request: Request, 
+        exc:     BoardNotFoundException
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code = status.HTTP_404_NOT_FOUND,
+            content     = { "detail": "Board not found." }
+        )
+
+    @app.exception_handler(NotAllowedToModifyException)
+    def not_allowed_handler(
+        request: Request, 
+        exc:     NotAllowedToModifyException
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code = status.HTTP_403_FORBIDDEN,
+            content     = { "detail": "You are not allowed to modify this resource." }
+        )
+
+    @app.exception_handler(WallpaperIsTooLargeException)
+    def wallpaper_too_large_handler(
+        request: Request, 
+        exc:     WallpaperIsTooLargeException
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code = status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            content     = { "detail": "Wallpaper is too large." }
+        )
+    
